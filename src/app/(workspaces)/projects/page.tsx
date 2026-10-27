@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { Suspense } from "react";
+import { projects } from "../../../lib/projects";
 async function ProjectsContent({
   searchParams,
 }: {
@@ -7,9 +9,21 @@ async function ProjectsContent({
   }>;
 }) {
   const results = await searchParams;
+  const myProjects = projects;
 
   console.log(results);
-  return "i made it";
+  return (
+    <div>
+      <ul>
+        {myProjects.map((project) => (
+          <div key={project.id}>
+            <h3 key={project.id}>{project.name}</h3>
+            <Link href={`projects/${project.id}`}>Project Link</Link>
+          </div>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default async function Page({
